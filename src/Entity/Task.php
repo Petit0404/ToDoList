@@ -16,29 +16,60 @@ class Task
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=90)
+     */
     private $title;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $completed;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TodoList::class, inversedBy="tasks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $list;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * Get the value of title
-     */ 
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     * Set the value of title
-     *
-     * @return  self
-     */ 
-    public function setTitle($title)
+    public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getCompleted(): ?bool
+    {
+        return $this->completed;
+    }
+
+    public function setCompleted(bool $completed): self
+    {
+        $this->completed = $completed;
+
+        return $this;
+    }
+
+    public function getList(): ?TodoList
+    {
+        return $this->list;
+    }
+
+    public function setList(?TodoList $list): self
+    {
+        $this->list = $list;
 
         return $this;
     }
